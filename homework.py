@@ -60,7 +60,7 @@ class SportsWalking(Training):
     FIRST_COEFFICIENT = 0.035
     SECOND_COEFFICIENT = 0.029
     CM_TO_METER = 100
-    KM_PER_HOUR_TO_METER_PER_SECOND = 3.6
+    KM_PER_HOUR_TO_METER_PER_SECOND = 0.278
 
     def __init__(self, action, duration, weight, height):
         super().__init__(action, duration, weight)
@@ -69,7 +69,7 @@ class SportsWalking(Training):
     def get_spent_calories(self) -> float:
         return ((self.FIRST_COEFFICIENT * self.weight
                  + ((self.get_mean_speed()
-                    / self.KM_PER_HOUR_TO_METER_PER_SECOND)**2
+                    * self.KM_PER_HOUR_TO_METER_PER_SECOND)**2
                     / self.height / self.CM_TO_METER)
                 * self.SECOND_COEFFICIENT * self.weight)
                 * self.duration * self.HOURS_TO_MINUTES)
