@@ -70,7 +70,7 @@ class SportsWalking(Training):
         return ((self.FIRST_COEFFICIENT * self.weight
                  + ((self.get_mean_speed()
                     * self.KM_PER_HOUR_TO_METER_PER_SECOND)**2
-                    / self.height / self.CM_TO_METER)
+                    / (self.height / self.CM_TO_METER))
                 * self.SECOND_COEFFICIENT * self.weight)
                 * self.duration * self.HOURS_TO_MINUTES)
 
