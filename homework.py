@@ -1,11 +1,12 @@
+from dataclasses import dataclass
+
+@dataclass
 class InfoMessage:
-    def __init__(self, training_type: str, duration: float,
-                 distance: float, speed: float, calories: float):
-        self.training_type = training_type
-        self.duration = duration
-        self.distance = distance
-        self.speed = speed
-        self.calories = calories
+    training_type: str
+    duration: float
+    distance: float
+    speed: float
+    calories: float
 
     def get_message(self) -> str:
         return (f'Тип тренировки: {self.training_type}; '
@@ -36,7 +37,7 @@ class Training:
         return self.get_distance() / self.duration
 
     def get_spent_calories(self) -> float:
-        pass
+        raise NotImplementedError
 
     def show_training_info(self) -> InfoMessage:
         return InfoMessage(self.__class__.__name__, self.duration,
@@ -98,8 +99,11 @@ def read_package(workout_type: str, data: list) -> Training:
     training_types = {'SWM': Swimming,
                       'RUN': Running,
                       'WLK': SportsWalking}
-    training_type: Training = training_types[workout_type](*data)
-    return training_type
+    if workout_type in training_types:
+        training_type: Training = training_types[workout_type](*data)
+        return training_type
+    else:
+        pass
 
 
 def main(training: Training) -> None:
@@ -114,5 +118,8 @@ if __name__ == '__main__':
         ('WLK', [9000, 1, 75, 180]),
     ]
     for workout_type, data in packages:
-        training = read_package(workout_type, data)
-        main(training)
+            training = read_package(workout_type, data)
+            try:
+                main(training)
+            except:
+                print('key does not exist in dictionary')
