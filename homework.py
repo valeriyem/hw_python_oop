@@ -103,8 +103,6 @@ def read_package(workout_type: str, data: list) -> Training:
     if workout_type in training_types:
         training_type: Training = training_types[workout_type](*data)
         return training_type
-    else:
-        pass
 
 
 def main(training: Training) -> None:
@@ -116,7 +114,7 @@ if __name__ == '__main__':
     packages = [
         ('SWM', [720, 1, 80, 25, 40]),
         ('RUN', [15000, 1, 75]),
-        ('WL', [9000, 1, 75, 180]),
+        ('WLK', [9000, 1, 75, 180]),
     ]
     for workout_type, data in packages:
         training = read_package(workout_type, data)
