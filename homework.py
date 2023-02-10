@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+
 @dataclass
 class InfoMessage:
     training_type: str
@@ -115,11 +116,11 @@ if __name__ == '__main__':
     packages = [
         ('SWM', [720, 1, 80, 25, 40]),
         ('RUN', [15000, 1, 75]),
-        ('WLK', [9000, 1, 75, 180]),
+        ('WL', [9000, 1, 75, 180]),
     ]
     for workout_type, data in packages:
-            training = read_package(workout_type, data)
-            try:
-                main(training)
-            except:
-                print('key does not exist in dictionary')
+        training = read_package(workout_type, data)
+        try:
+            main(training)
+        except AttributeError:
+            print('key does not exist in dictionary')
